@@ -1,0 +1,165 @@
+.description {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	margin-bottom: 10px;
+	line-height: 1.4em;
+}
+#ballot,
+.input-group
+ {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.input-group {
+  width:100%;
+  margin-bottom: 10px;
+}
+#submit {
+	background-color: #0089cf;
+}
+div#ballot a {
+	color: #a0a627;
+	cursor: pointer;
+}
+div#ballot a:hover {
+	text-decoration: none;
+	color: #777c19;
+}
+#ballot h3 {
+	color: #0089cf;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 1.3em;
+}
+#ballot h2 {
+	border-color: #d12229;
+	margin: 30px 0 0 0;
+}
+div#ballot ul li {
+	list-style-type:none;
+	padding-top: 10px;
+    border-top: 1px solid #ccc;
+    margin-top: 10px;
+}
+#ballotTitle {
+	text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 20px 0 0 0;
+    font-size: 22px;
+}
+.candidate {
+	font-weight:bold;
+	display:block;
+	font-size:20px;
+	line-height:21px;
+	text-transform: uppercase;
+	width: 84%;
+}
+.scantron {
+	border: 2px solid #666;
+    border-radius: 10px;
+    letter-spacing: .8em;
+    float: right;
+    line-height: 1.3;
+    margin-top: -20px;
+}
+.scantron:hover {
+	background-color:#666;
+	color:#666;
+	}
+.party {
+	display:block;
+	margin-bottom:5px;
+}
+.bio {
+	line-height:1.4em;
+}
+.readmoreBallot {
+	font-family: 'sentinel a','sentinel b', georgia,'times new roman',times,serif;
+	display: block;
+	font-style: italic;
+	margin:5px 0;
+	font-size: 16px;
+}
+div#ballot ul li ul li {
+	line-height: 20px;
+	list-style-type:disc;
+	margin: 0 0 6px 16px;
+	border: 0;
+	padding: 0;
+}
+div#ballot ul li ul {
+	margin: 10px 0 36px 0;
+}
+.count {
+	display:block;
+	font-size: 17px;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.state {
+	font-size: 15px;
+	text-transform: none;
+}
+#notes {
+	text-align: right;
+    font-size: 13px;
+    font-style: italic;
+    margin-bottom: 5px;
+    }
+.disclaim	{
+    display: block;
+    font-size: 18px;
+    line-height: 1.2em;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: #666;
+    font-style: italic;
+    font-weight: normal;
+    }
+.jump {
+	text-align:center;
+	margin: 30px 0;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important;
+}
+
+.ballotbox {
+	float: right;
+	margin: 0 0 10px 5px;
+	}
+
+
+/* PREV */
+
+#ballotcontainer {
+  background-color: white;
+  border-left: dashed 4px #333;
+  border-right: dashed 4px #333;
+  border-top: solid 8px #333;
+	border-bottom: solid 8px #333;
+  margin: 20px 0 40px 0;
+}
+
+#search {
+  color: white;
+  border-radius: 6px;
+  background-color: #d12229;
+  position: relative;
+}
+#search h4 {
+	clear: none;
+	}
+
+#mapcontainer {
+  height:300px;
+  padding-bottom: 20px;
+}
+
+#map {
+  width:100%;
+  height:100%;
+}
+
+
+#infocontent {
+	color:#000;
+	width:200px;
+    line-height: 1.3;
+    font-family:sans-serif;
+}

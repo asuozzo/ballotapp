@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Ballot app</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+    <script src="https://npmcdn.com/@turf/turf@3.5.1/turf.min.js"></script>
+    <script src="js/simple-expand.min.js" charset="utf-8"></script>
+    <script src="js/mustache.min.js"></script>
+
+    <script src="js/script.js"></script>
+    <script src="data/housedist.js" type="text/javascript"></script>
+    <script src="data/sendist.js" type="text/javascript"></script>
+    <script src="data/candidates.js" type="text/javascript"></script>
+  </head>
+  <body>
+
+
+    <div class="container-fluid" id="search">
+        <h4>Vermont 2016 Ballot Generator</h4>
+
+        <div class="row">
+          <div class = "col-md-6">
+            <div class="description">
+<img src="ballotbox.png" class="ballotbox" />
+Wondering what names you'll see on the ballot this Election Day? Enter your address below and we'll show you. And don't worry — we won't store any of the info you submit!</div>
+            <div class="input-group">
+              <input type="textbox" id="townsearch" class="form-control" placeholder="Enter your address...">
+              <span class="input-group-btn">
+                <button class="btn btn-secondary" id="submit" type="button">Go!</button>
+              </span>
+            </div>
+          </div>
+          <div id = "mapcontainer" class="col-md-6">
+            <div id="map"></div>
+          </div>
+        </div>
+    </div>
+    <div class="container-fluid" id="ballotcontainer">
+      <div id="ballot" class="row-fluid">
+        <div id="ballotTitle" class="col-md-12">
+Unofficial Vermont General Election Ballot<br>November 8, 2016
+        </div>
+
+        <div id="federal" class="col-md-4">
+        </div>
+        <div id="statewide" class="col-md-4">
+        </div>
+        <div id="local" class="col-md-4">
+        </div>
+        <div class="row">
+          <div id="notes" class="col-md-12">
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <script id="federalTemplate" type="text/template">
+        <p class="jump visible-sm-block visible-xs-block">Jump to: <a href="#statewide">State</a> | <a href="#local">Local</a></p>
+         <h2>Federal Races</h2>
+         <h3>President and Vice President of the United States</h3>
+
+         <ul>
+           {{#president}}
+           <li>
+              <span class="candidate">{{President}}, <span class="state">{{PresResidence}} and</span>  {{VicePresident}}, <span class="state">{{VPResidence}}</span></span>
+              <span class="scantron">&nbsp;&nbsp;</span>
+              <span class="party">{{Party}}</span>
+           </li>
+           {{/president}}
+         </ul>
+         <h3>US Senator</h3>
+           <ul>
+             {{#ussenator}}
+           <li>
+      <span class="candidate">{{Name}}</span>
+             <span class="scantron">&nbsp;&nbsp;</span>
+             <span class="party">{{Town of Residence}} | {{Party}}</span>
+              <a class="expander">Read more</a>
+              <div class="content">
+                <span class="bio">{{Bio}}</span>
+                <ul>
+                  {{#links}}
+                  <li>
+                    <a href="{{Link}}" target="_blank">{{LinkName}}</a>
+                  </li>
+                  {{/links}}
+                </ul>
+              </div>
+            </li>
+             {{/ussenator}}
+           </ul>
+       </div>
+       <h3>Representative to Congress</h3>
+         <ul>
+           {{#usrep}}
+           <li>
+      <span class="candidate">{{Name}}</span>
+              <span class="scantron">&nbsp;&nbsp;</span>
+            <span class="party">{{Town of Residence}} | {{Party}}</span>
+            <a class="expander">Read more</a>
+            <div class="content">
+              <span class="bio">{{Bio}}</span>
+              <ul>
+                {{#links}}
+                <li>
+                  <a href="{{Link}}" target="_blank">{{LinkName}}</a>
+                </li>
+                {{/links}}
+              </ul>
+            </div>
+      </li>
+           {{/usrep}}
+         </ul>
+
+   </script>
+
+     <script id="statewideTemplate" type="text/template">
+        <p class="jump visible-sm-block visible-xs-block">Jump to: <a href="#local">Local</a></div> | <a href="#search">Top</a></p>
+
+         <h2>Vermont Races</h2>
+         <h3>Governor</h3>
+           <ul>
+             {{#governor}}
+             <li>
+        <span class="candidate">{{Name}}</span>
+                <span class="scantron">&nbsp;&nbsp;</span>
+              <span class="party">{{Town of Residence}} | {{Party}}</span>
+              <a class="expander">Read more</a>
+              <div class="content">
+                <span class="bio">{{Bio}}</span>
+                <ul>
+                  {{#links}}
+                  <li>
+                    <a href="{{Link}}" target="_blank">{{LinkName}}</a>
+                  </li>
+                  {{/links}}
+                </ul>
+              </div>
+        </li>
+             {{/governor}}
+           </ul>
+         <h3>Lt. Governor</h3>
+           <ul>
+             {{#ltgovernor}}
+             <li>
+         <span class="candidate">{{Name}}</span>
+                <span class="scantron">&nbsp;&nbsp;</span>
+              <span class="party">{{Town of Residence}} | {{Party}}</span>
+              <a class="expander">Read more</a>
+              <div class="content">
+                <span class="bio">{{Bio}}</span>
+                <ul>
+                  {{#links}}
+                  <li>
+                    <a href="{{Link}}" target="_blank">{{LinkName}}</a>
+                  </li>
+                  {{/links}}
+                </ul>
+              </div>
+         </li>
+             {{/ltgovernor}}
+           </ul>
+
+
+               <h3>Auditor of Accounts</h3>
+                 <ul>
+                   {{#auditor}}
+                   <li>
+              <span class="candidate">{{Name}}</span>
+                      <span class="scantron">&nbsp;&nbsp;</span>
+                    <span class="party">{{Town of Residence}} | {{Party}}</span>
+                    <a class="expander">Read more</a>
+                    <div class="content">
+                      <span class="bio">{{Bio}}</span>
+                      <ul>
+                        {{#links}}
+                        <li>
+                          <a href="{{Link}}" target="_blank">{{LinkName}}</a>
+                        </li>
+                        {{/links}}
+                      </ul>
+                    </div>
+              </li>
+                   {{/auditor}}
+                 </ul>
+               <h3>Attorney General</h3>
+                 <ul>
+                   {{#attorneygen}}
+                   <li>
+              <span class="candidate">{{Name}}</span>
+                      <span class="scantron">&nbsp;&nbsp;</span>
+                    <span class="party">{{Town of Residence}} | {{Party}}</span>
+                    <a class="expander">Read more</a>
+                    <div class="content">
+                      <span class="bio">{{Bio}}</span>
+                      <ul>
+                        {{#links}}
+                        <li>
+                          <a href="{{Link}}" target="_blank">{{LinkName}}</a>
+                        </li>
+                        {{/links}}
+                      </ul>
+                    </div>
+              </li>
+                   {{/attorneygen}}
+                 </ul>
+
+               <h3>Secretary of State</h3>
+                 <ul>
+                   {{#secofstate}}
+                   <li>
+              <span class="candidate">{{Name}}</span>
+                      <span class="scantron">&nbsp;&nbsp;</span>
+                    <span class="party">{{Town of Residence}} | {{Party}}</span>
+                    <a class="expander">Read more</a>
+                    <div class="content">
+                      <span class="bio">{{Bio}}</span>
+                      <ul>
+                        {{#links}}
+                        <li>
+                          <a href="{{Link}}" target="_blank">{{LinkName}}</a>
+                        </li>
+                        {{/links}}
+                      </ul>
+                    </div>
+              </li>
+                   {{/secofstate}}
+                 </ul>
+
+               <h3>State Treasurer</h3>
+                 <ul>
+                   {{#treasurer}}
+                   <li>
+               <span class="candidate">{{Name}}</span>
+                      <span class="scantron">&nbsp;&nbsp;</span>
+                    <span class="party">{{Town of Residence}} | {{Party}}</span>
+                    <a class="expander">Read more</a>
+                    <div class="content">
+                      <span class="bio">{{Bio}}</span>
+                      <ul>
+                        {{#links}}
+                        <li>
+                          <a href="{{Link}}" target="_blank">{{LinkName}}</a>
+                        </li>
+                        {{/links}}
+                      </ul>
+                    </div>
+               </li>
+                   {{/treasurer}}
+                 </ul>
+   </script>
+
+   <script id="localTemplate" type="text/template">
+           <p class="jump visible-sm-block visible-xs-block">Jump to: <a href="#search">Top</a></div> | <a href="#statewide">State</a></p>
+
+            <h2>Local Races<span class="disclaim">Does not include county races or local ballot items.</span> </h2>
+             <h3>State Senator <span class="count">Vote for not more than {{properties.senDistMem}}</span></h3>
+
+               <ul>
+             {{#properties.senator}}
+                 <li>
+   				<span class="candidate">{{Name}}</span>
+                  <span class="scantron">&nbsp;&nbsp;</span>
+                  <span class="party">{{Town of Residence}} | {{Party}}</span>
+                 </li>
+             {{/properties.senator}}
+               </ul>
+             <h3>State Representative <span class="count">Vote for not more than {{properties.houseDistMem}}</span></h3>
+               <ul>
+             {{#properties.rep}}
+                 <li>
+   				<span class="candidate">{{Name}}</span>
+                 <span class="scantron">&nbsp;&nbsp;</span>
+    <span class="party">{{Town of Residence}} | {{Party}}</span>
+                 </li>
+             {{/properties.rep}}
+               </ul>
+
+
+   </script>
+
+
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=[APIKEY HERE]&libraries=places&callback=initMap"></script>
+  </body>
+</html>
